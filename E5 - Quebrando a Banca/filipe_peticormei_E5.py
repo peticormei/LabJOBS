@@ -4,7 +4,7 @@ def num_max(l):
     num = l[0]
     index = 0
     for i in range(len(l)):
-        if l[i] > num:
+        if l[i] >= num:
             num = l[i]
             index = i
     return [num, index + 1]
