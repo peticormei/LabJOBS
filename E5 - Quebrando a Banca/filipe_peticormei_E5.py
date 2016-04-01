@@ -26,17 +26,18 @@ while True:
             n_int_num %= division
         start = 0
         for z in range(((n_int_case[0] - n_int_case[1]) - 1), -1, -1):
+            if z == n_int_case[0] - n_int_case[1] - 1:
+                frist = True
             if z == 0:
                 num_info = num_max(list_num[start:])
             else:
                 num_info = num_max(list_num[start: -z])
             fileOut.write(str(num_info[0]))
-            start = num_info[1]
-        # list_balance = list_num
-        # for i in range(n_int_case[1]):
-        #     list_balance.remove(min(list_num))
-        # for elem in list_balance:
-        #     fileOut.write(str(elem))
+            if frist == True:
+                start = num_info[1]
+                frist = False
+            else:
+                start += num_info[1]
         fileOut.write('\n')
     else:
         fileOut.write('Erro: Numeros passaram do limite\n')
