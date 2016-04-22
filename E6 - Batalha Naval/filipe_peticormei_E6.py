@@ -4,9 +4,8 @@ fileIn = open(sys.argv[1], mode = 'r')
 fileOut = open(sys.argv[2], mode = 'w')
 
 tab = []
+total = 0
 points = []
-count = 0
-t = 0
 
 def l_boats(tab, m, n):
     l = []
@@ -25,6 +24,18 @@ def l_boats(tab, m, n):
                 pass
     return l
 
+def d_boats(tab, m, n):
+    t = 0
+    count = 0
+    for b in l_boats(tab, m, n):
+        for p in b:
+            if p == 'X':
+                t += 1
+            if t == len(b):
+                t = 0
+                count += 1
+    return count
+
 size_tab = list(map(int, fileIn.readline().split()))
 if size_tab[0] >= 1 and size_tab[0] <= 100:
     if size_tab[1] <= 100:
@@ -39,14 +50,8 @@ if size_tab[0] >= 1 and size_tab[0] <= 100:
         for p in points:
             if tab[p[0]-1][p[1]-1] == '#':
                 tab[p[0]-1][p[1]-1] = 'X'
-        for b in l_boats(tab, size_tab[0], size_tab[1]):
-            for p in b:
-                if p == 'X':
-                    t += 1
-            if t == len(b):
-                t = 0
-                count += 1
-        fileOut.write(str(count)+'\n')
+        total += d_boats(tab, size_tab[0], size_tab[1])
+        fileOut.write(str(total)+'\n')
     else:
         fileOut.write('O numero de M nao respeitou a restricao')
 else:
