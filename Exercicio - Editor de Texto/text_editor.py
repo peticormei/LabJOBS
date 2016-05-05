@@ -16,7 +16,7 @@ text = Stack()
 form = DoublyLinkedList()
 while True:
     line = fileIn.readline().split()
-    if len(line) == 0:
+    if line == []:
         break
     elif line[0].lower() == 'adicionar':
         undo.clean_out()
@@ -40,6 +40,7 @@ while True:
         x = undo.pop()
         while x is not None:
             text.push(x)
+            x = undo.pop()
     elif line[0].lower() == 'refazer':
         for i in range(y):
             x = text.pop()
@@ -47,15 +48,15 @@ while True:
 
 
 t = ''
-x = text.firstNode
+x = text.lastNode
 while x is not None:
     t += str(x.get_data()) + ' '
-    x = text.firstNode.get_nextNode()
-t += ' | '
-y = form.firstNode
+    x = x.get_prevNode()
+t += '| '
+y = form.lastNode
 while y is not None:
     t += str(y.get_data()) + ' '
-    y = form.firstNode.get_nextNode()
+    y = y.get_prevNode()
 fileOut.write(t)
 
 fileIn.close()

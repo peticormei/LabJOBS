@@ -66,16 +66,16 @@ class DoublyLinkedList():
             self.lastNode = newNode
             
     def removeFromBegin(self):
+        currentNode = self.firstNode
         if self.isEmpty():
             return None
         elif self.firstNode is self.lastNode:
             self.firstNode = self.lastNode = None
         else:
-            currentNode = self.firstNode
             self.firstNode = currentNode.get_nextNode()
             self.firstNode.set_prevNode(None)
             currentNode.set_nextNode(None)
-        return self.firstNode.get_data()
+        return currentNode.get_data()
     
     def removeFromEnd(self):
         value = self.lastNode.get_data()
@@ -126,5 +126,5 @@ class Stack(DoublyLinkedList):
         self.insertAtBegin(value)
         
     def pop(self):
-        self.removeFromBegin()
+        return self.removeFromBegin()
     
