@@ -46,17 +46,17 @@ while True:
             undo.push(x)
 
 
-# t = ''
-# x = text.firstNode.get_data()
-# while x is not None:
-#     t += x + ' '
-#     x = text.firstNode.get_nextNode().get_data()
-# t += ' | '
-# y = form.firstNode.get_data()
-# while y is not None:
-#     t += y + ' '
-#     y = form.firstNode.get_nextNode().get_data()
-# fileOut.write(t)
+t = ''
+x = text.firstNode
+while x is not None:
+    t += str(x.get_data()) + ' '
+    x = text.firstNode.get_nextNode()
+t += ' | '
+y = form.firstNode
+while y is not None:
+    t += str(y.get_data()) + ' '
+    y = form.firstNode.get_nextNode()
+fileOut.write(t)
 
 fileIn.close()
 fileOut.close()

@@ -9,7 +9,7 @@ class DoublyNode():
         self.data = data
         self.nextNode = None
         self.prevNode = None
-        
+
     def get_data(self):
         return self.data
     
@@ -29,21 +29,20 @@ class DoublyNode():
         self.nextNode = node
         
 class DoublyLinkedList():
-    
+
+    def __init__(self):
+        self.firstNode = None
+        self.lastNode = None
+
     def __str__(self):
-        "Override do Estatuto STRING"
         if self.isEmpty():
-            return "A lista esta vazia!"
+            return "A lista esta vazia"
+        string = "Lista: "
         currentNode = self.firstNode
-        string = "A lista eh:"
         while currentNode is not None:
             string += str(currentNode.get_data()) + " "
             currentNode = currentNode.get_nextNode()
         return string
-    
-    def __init__(self):
-        self.firstNode = None
-        self.lastNode = None
         
     def isEmpty(self):
         return self.firstNode is None
@@ -53,11 +52,10 @@ class DoublyLinkedList():
         if self.firstNode is None:
             self.firstNode = self.lastNode = newNode
         else:
+            self.firstNode.set_prevNode(newNode)
             newNode.set_nextNode(self.firstNode)
             self.firstNode = newNode
-            print(self.firstNode.get_nextNode().get_data())
-            print(self.firstNode.get_prevNode().get_data())
-    
+
     def insertAtEnd(self, value):
         newNode = DoublyNode(value)
         if self.lastNode is None:
@@ -68,14 +66,16 @@ class DoublyLinkedList():
             self.lastNode = newNode
             
     def removeFromBegin(self):
-        value = self.firstNode.get_data()
         if self.isEmpty():
             return None
         elif self.firstNode is self.lastNode:
             self.firstNode = self.lastNode = None
         else:
-            self.firstNode = self.firstNode.get_nextNode()
-        return value
+            currentNode = self.firstNode
+            self.firstNode = currentNode.get_nextNode()
+            self.firstNode.set_prevNode(None)
+            currentNode.set_nextNode(None)
+        return self.firstNode.get_data()
     
     def removeFromEnd(self):
         value = self.lastNode.get_data()
@@ -111,10 +111,10 @@ class DoublyLinkedList():
         
     def search(self, value):
         currentNode = self.firstNode
-        while currentNode.get_data() is not value:
+        while currentNode is not None:
+            if currentNode.get_data() == value:
+                return currentNode          
             currentNode = currentNode.get_nextNode()
-        if currentNode.get_data() == value:
-            return currentNode
         return None
     
     def clean_out(self):
