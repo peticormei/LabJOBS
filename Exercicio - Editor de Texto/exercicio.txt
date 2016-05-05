@@ -1,0 +1,36 @@
+Exerc�cio para j�!
+
+A fun��o "desfazer" est� presente em v�rios 
+aplicativos. Ela permite que o usu�rio volte 
+a um ponto anterior da confec��o de seu 
+documento. H� tamb�m a fun��o "refazer", 
+que leva a edi��o do documento a um ponto 
+posterior em um hist�rico de altera��es 
+nesse item.
+
+Tarefa: Implemente as fun��es 
+"desfazer" e "refazer" em um editor de textos.
+Tal aplicativo dever� executar um conjunto
+de comandos simples: adicionar, it�lico, 
+negrito, apagar, desfazer e refazer.
+
+Entrada: A entrada ser� um conjunto 
+de comandos dos seguintes tipos:
+
+	* adicionar <texto>
+	* it�lico
+	* negrito
+	* apagar <n�mero de palavras>
+	* desfazer
+	* refazer
+
+Entrada:
+
+	adicionar abacaxi � bom
+	it�lico
+	apagar 2
+	desfazer
+
+Sa�da:
+
+	abacaxi � bom | it�lico
