@@ -26,6 +26,16 @@ class SinglyLinkedList():
     def __init__(self):
         self.firstNode = None
         self.lastNode = None
+        
+    def __str__(self):
+        if self.isEmpty():
+            return "A lista esta vazia"
+        string = "Lista: "
+        currentNode = self.firstNode
+        while currentNode is not None:
+            string += str(currentNode.get_data()) + " "
+            currentNode = currentNode.get_nextNode()
+        return string
     
     def isEmpty(self):
         return self.firstNode is None
@@ -65,26 +75,34 @@ class SinglyLinkedList():
         else:
             currentNode = self.firstNode
             while currentNode is not self.lastNode:
+                prevNode = currentNode
                 currentNode = currentNode.get_nextNode()
-            currentNode.set_nextNode(None)
-            self.lastNode = currentNode
+            prevNode.set_nextNode(None)
+            self.lastNode = prevNode
         return value
     
     def removeNode(self, value):
         node = self.search(value)
         if node is None:
             return None
-        currentNode = self.firstNode
-        while currentNode is not node:
-            previous = currentNode
-            currentNode = currentNode.get_nextNode()
-        previous.set_nextNode(currentNode.get_nextNode())
-        currentNode = None
-        return value
+        if self.firstNode.get_data() is value:
+            self.removeFromBegin()
+        elif self.lastNode.get_data() is value:
+            self.removeFromEnd()
+        else:
+            currentNode = self.firstNode
+            while currentNode is not node:
+                previous = currentNode
+                currentNode = currentNode.get_nextNode()
+            previous.set_nextNode(currentNode.get_nextNode())
+            currentNode = None
+            return value
                     
     def search(self, value):
         currentNode = self.firstNode
-        while currentNode.get_data() is not value:
+        while currentNode is not None:
+            if currentNode.get_data() is value:
+                break
             currentNode = currentNode.get_nextNode()
         return currentNode
     
