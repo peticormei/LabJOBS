@@ -1,0 +1,6 @@
+O que e notacao polonesa? -> http://www.netsoft.inf.br/aulas/3_SIN_Estruturas_de_Dados/Estruturas/site/paplic.html
+Reverse list -> http://stackoverflow.com/questions/3940128/how-can-i-reverse-a-list-in-python
+Switch-case -> https://bytebaker.com/2008/11/03/switch-case-statement-in-python/
+str.isdigit -> https://docs.python.org/2/library/stdtypes.html
+
+
