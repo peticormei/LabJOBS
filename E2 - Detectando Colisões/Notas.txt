@@ -1,4 +1,0 @@
-Sites que ajudaram na resposta:
-
-http://www.pontov.com.br/site/xna/53-xna/287-colisao-por-retangulos-jogos-bidimensionais-em-xna
-http://cristinajungdesign.blogspot.com.br/2015/06/trabalhando-com-colisao-javascript.html

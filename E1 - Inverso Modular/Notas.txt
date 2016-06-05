@@ -1,3 +1,0 @@
-Site que ajudou na resposta:
-
-https://pt.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic
