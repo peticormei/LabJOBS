@@ -1,5 +1,3 @@
-import sys
-
 class Node():
     
     def __init__(self, key):
@@ -8,7 +6,7 @@ class Node():
         self.left = None
         self.right = None
 
-class BST():
+class AVL():
     
     def __init__(self):
         self.root = None
@@ -73,7 +71,7 @@ class BST():
                 x = y
                 y = y.parent
             return y
-        
+
     def insert(self, z):
         z = Node(z)
         y = None
@@ -91,6 +89,14 @@ class BST():
             y.left = z
         else:
             y.right = z
+        '''
+        parent = y
+        while parent is not None:
+            if self.balancing(parent) == True:
+                break
+            else:
+                parent = parent.parent
+        '''
             
     def transplant(self, u, v):
         if u.parent == None:
@@ -117,60 +123,70 @@ class BST():
             self.transplant(z, y)
             y.left = z.left
             y.left.parent = y
+        '''
+        parent = y
+        while parent is not None:
+            if self.balancing(parent) == True:
+                break
+            else:
+                parent = parent.parent
+        '''
             
-fileIn = open(sys.argv[1], mode = 'r')
-fileOut = open(sys.argv[2], mode = 'w')
-
-control = 0
-case = 0
-while control == 0:
-    line = fileIn.readline()
-    if line == '':
-        control = 1
-        break
-    case += 1
-    tree = BST()
-    fileOut.write('Caso: '+str(case)+'\n')
-    for i in range(int(line)):
-        l = []
-        seq = ''
-        line = fileIn.readline().split()
-        if line[0].upper() == 'A':
-            tree.insert(int(line[1]))
-        elif line[0].upper() == 'B':
-            tree.delete(int(line[1]))
-        elif line[0].upper() == 'C':
-            value = tree.predecessor(tree.search(int(line[1])))
-            if value:
-                fileOut.write(str(value.key)+'\n')
+    def left_rotate(self, x):
+        y = x.right
+        x.right = y.left
+        if y.left is not None:
+            y.left.parent = x
+        y.parent = x.parent
+        if x.parent is None:
+            self.root = y
+        elif x is x.parent.left:
+            x.parent.left = y
+        else:
+            x.parent.right = y
+        y.left = x
+        x.parent = y
+        
+    def right_rotate(self, y):
+        x = y.left
+        y.left = x.right
+        if x.right is not None:
+            x.right.parent = y
+        x.parent = y.parent
+        if y.parent is None:
+            self.root = x
+        elif y is y.parent.right:
+            y.parent.right = x
+        else:
+            y.parent.left = x
+        x.right = y
+        y.parent = x
+        
+    def height(self, x):
+        if x is None:
+            return -1
+        h1 = self.height(x.left)
+        h2 = self.height(x.right)
+        return (1 + max(h1, h2))
+        
+    def balance_factor(self, x):
+        return (self.height(x.right) - self.height(x.left))
+    
+    def balancing(self, x):
+        factor = self.balance_factor(x)
+        if factor > 1:
+            if self.balance_factor(x.right) < 0:
+                self.right_rotate(x)
+                self.left_rotate(x)
             else:
-                fileOut.write(str(0)+'\n')
-        elif line[0].upper() == 'PRE':
-            tree.preorder(l, tree.root)
-            if l == []:
-                fileOut.write(str(0)+'\n')
+                self.left_rotate(x)
+            return True
+        elif factor < -1:
+            if self.balance_factor(x.left) > 0:
+                self.left_rotate(x)
+                self.right_rotate(x)
             else:
-                for e in l:
-                    seq += e+' '
-                fileOut.write(seq+'\n')
-        elif line[0].upper() == 'IN':
-            tree.inorder(l, tree.root)
-            if l == []:
-                fileOut.write(str(0)+'\n')
-            else:
-                for e in l:
-                    seq += e+' '
-                fileOut.write(seq+'\n')
-        elif line[0].upper() == 'POST':
-            tree.postorder(l, tree.root)
-            if l == []:
-                fileOut.write(str(0)+'\n')
-            else:
-                for e in l:
-                    seq += e+' '
-                fileOut.write(seq+'\n')
-                
-print(tree.preorder([],tree.root))
-
-fileIn.close()
-fileOut.close()
+                self.right_rotate(x)
+            return True
+        else:
+            return False
