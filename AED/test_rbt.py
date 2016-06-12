@@ -1,9 +1,15 @@
-from rbt import RBT
+from rbt_cormen import RBT
 
-l=[]
 tree = RBT()
+print(tree.isEmpty())
+tree.rb_insert(2, 'teste')
 tree.rb_insert(5)
-tree.rb_insert(4)
+tree.rb_insert(3)
+tree.rb_insert(4, 'teste4')
 tree.rb_insert(8)
-tree.rb_insert(6)
-print(tree.inorder(l))
+print(tree.search(4).data)
+print(tree.isEmpty())
+print(tree.predecessor(5))
+print(tree.successor(5))
+tree.emptyTree()
+print(tree.isEmpty())

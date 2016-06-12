@@ -10,32 +10,33 @@ class Node():
 class RBT():
     def __init__(self):
         self.nil = Node(None, 'black')
-        self.root = None
+        self.root = self.nil
         self.nil.left = self.nil
         self.nil.right = self.nil
         self.nil.parent = self.nil
 
-    def inorder(self, l, x):
-        if x != None:
-            self.inorder(l, x.left)
-            l.append(str(x.key))
-            self.inorder(l, x.right)
-
+    def inorder(self, x):
+        if x != self.nil:
+            self.inorder(x.left)
+            print(str(x.key))
+            self.inorder(x.right)
+    '''
     def preorder(self, l, x):
-        if x != None:
+        if x != self.nil:
             l.append(str(x.key))
             self.preorder(l, x.left)
             self.preorder(l, x.right)
 
     def postorder(self, l, x):
-        if x != None:
+        if x != self.nil:
             self.preorder(l, x.left)
             self.preorder(l, x.right)
             l.append(str(x.key))
-
+    '''
+    
     def search(self, k):
         x = self.root
-        while x != None and k != x.key:
+        while x != self.nil and k != x.key:
             if k < x.key:
                 x = x.left
             else:
@@ -43,12 +44,12 @@ class RBT():
         return x
 
     def minimum(self, x):
-        while x.left != None:
+        while x.left != self.nil:
             x = x.left
         return x
 
     def maximum(self, x):
-        while x.right != None:
+        while x.right != self.nil:
             x = x.right
         return x
 
@@ -71,7 +72,9 @@ class RBT():
         return y
 
     def isEmpty(self):
-        return self.root is self.nil
+        if self.root is self.nil:
+            return True
+        return False
 
     def emptyTree(self):
         self.root = self.nil
@@ -116,7 +119,7 @@ class RBT():
                 b = b.right
         node.parent = a #coloco a instancia da variavel a como pai do node
         if a is self.nil:  #atribuo a posicao correta do node na arvore (se sera raiz, subarvore esquerda ou direita)
-            self.root = a
+            self.root = node
         elif node.key < a.key:
             a.left = node
         else:
@@ -134,12 +137,13 @@ class RBT():
                     b.color = 'black'
                     node.parent.parent.color = 'red'
                     node = node.parent.parent
-                elif node is node.parent.right:
-                    node = node.parent
-                    self.left_rotate(node)
-                node.parent.color = 'black'
-                node.parent.parent.color = 'red'
-                self.right_rotate(node.parent.parent)
+                else:
+                    if node is node.parent.right:
+                        node = node.parent
+                        self.left_rotate(node)
+                    node.parent.color = 'black'
+                    node.parent.parent.color = 'red'
+                    self.right_rotate(node.parent.parent)
             else:
                 if node.parent is node.parent.parent.right:
                     b = node.parent.parent.left
@@ -148,12 +152,13 @@ class RBT():
                         b.color = 'black'
                         node.parent.parent.color = 'red'
                         node = node.parent.parent
-                    elif node is node.parent.left:
-                        node = node.parent
-                        self.right_rotate(node)
-                    node.parent.color = 'black'
-                    node.parent.parent.color = 'red'
-                    self.left_rotate(node.parent.parent)
+                    else:
+                        if node is node.parent.left:
+                            node = node.parent
+                            self.right_rotate(node)
+                        node.parent.color = 'black'
+                        node.parent.parent.color = 'red'
+                        self.left_rotate(node.parent.parent)
         self.root.color = 'black'
 
     def rb_delete(self, node):
@@ -165,11 +170,7 @@ class RBT():
             a = b.left
         else:
             a = b.right
-        '''
         a.parent  = b.parent
-        '''
-        if a is not self.nil:
-            a.parent = b.parent
         if b.parent is self.nil:
             self.root = a
         elif b is b.parent.left:
