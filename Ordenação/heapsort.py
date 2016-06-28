@@ -1,46 +1,46 @@
 class Heap():
     
-    def __init__(self, alist):
-        self.array = alist
-        self.len_array = len(alist)
+    def __init__(self, array):
+        self.array = array
+        self.heap_size = len(array)
 
-    def __parent(self, i):
-        return (i-1)//2
+    def parent(self, i):
+        return (i-1) // 2
         
-    def __left(self, i):
-        return 2*i+1
+    def left(self, i):
+        return (2 * i) + 1
         
-    def __right(self, i):
-        return 2*i+2
+    def right(self, i):
+        return (2 * i) + 2
         
-    def __changeElem(self, i, j):
+    def exchange(self, i, j):
         self.array[i], self.array[j] = self.array[j], self.array[i]
         
-    def maxHeapify(self, i):
-        l = self.__left(i)
-        r = self.__right(i)
-        if l <= self.len_array-1 and self.array[l] > self.array[i]:
-            maior = l
+    def max_heapify(self, i):
+        left = self.left(i)
+        right = self.right(i)
+        if left <= (self.heap_size - 1) and self.array[left] > self.array[i]:
+            maior = left
         else:
             maior = i
-        if r <= self.len_array-1 and self.array[r] > self.array[maior]:
-            maior = r
+        if right <= (self.heap_size - 1) and self.array[right] > self.array[maior]:
+            maior = right
         if maior != i:
-            self.__changeElem(i, maior)
-            self.maxHeapify(maior)
+            self.exchange(i, maior)
+            self.max_heapify(maior)
             
-    def build_maxHeapify(self):
-        for i in range(self.len_array-1//2,-1,-1):
-            self.maxHeapify(i)
+    def build_max_heap(self):
+        for i in range((self.heap_size // 2), -1, -1):
+            self.max_heapify(i)
             
     def heapsort(self):
-        self.build_maxHeapify()
-        for i in range(self.len_array-1,0,-1):
-            self.__changeElem(0,i)
-            self.len_array -= 1
-            self.maxHeapify(0)
+        self.build_max_heap()
+        for i in range((self.heap_size - 1), -1, -1):
+            self.exchange(0,i)
+            self.heap_size -= 1
+            self.max_heapify(0)
             
-l=[5,3,2,7,1,9,8]
-x = Heap(l)
-x.heapsort()
-print(x.array)
+array = [5, 3, 1, 2, 6, 4]
+heap = Heap(array)
+heap.heapsort()
+print(heap.array)

@@ -1,10 +1,9 @@
-def bubble_sort(alist):
-    for num in range(len(alist)-1, 0, -1):
-        for i in range(num):
-            if alist[i] > alist[i+1]:
-                alist[i], alist[i+1] = alist[i+1], alist[i]
-    return alist
-    
-l=[5,3,2,7,1,9,8]
-x = bubble_sort(l)
-print(x)
+def bubble_sort(array):
+    for i in range(len(array)-1, 0, -1):
+        for j in range(i):
+            if array[j] > array[j + 1]:
+                array[j], array[j + 1] = array[j + 1], array[j]
+
+array = [5, 3, 1, 2, 6, 4]
+bubble_sort(array)
+print(array)
